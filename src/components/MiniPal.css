@@ -1,0 +1,88 @@
+.colors {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 70%;
+    padding: 0.3rem;
+   
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 190px;
+    height: 200px;
+    padding: 0.1rem 0.5rem;
+    background-color: #fff;
+    margin: 1rem;
+    border-radius: 20px;
+    -webkit-box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55); 
+box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55);
+    
+}
+
+.container a {
+    text-decoration: none;
+    outline: none;
+
+}
+
+.container a:active , :focus {
+    outline:  none;
+    color: inherit;
+    
+}
+
+.palete-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 65%;
+}
+
+.palete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('https://i.imgur.com/YJOX1PC.png');
+}
+
+.palete-container h1  {
+    margin-left: 0;
+    color: rgb(4, 83, 255);
+    font-family: 'Neucha', cursive;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55); 
+    box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55);
+    text-align: center;
+    padding: 0.5rem 2rem;
+    background-color: rgba(255, 255, 255, 0.712);
+        
+
+}
+
+.main-header {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.create-btn {
+    color: rgb(235, 21, 199);
+    font-family: 'Neucha', cursive;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55); 
+    box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55);
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.616);
+    font-weight: 700;
+}

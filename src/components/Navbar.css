@@ -1,0 +1,46 @@
+.navbar {
+    display: flex;
+}
+
+
+.color-slider {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+
+}
+
+.color-slider p {
+    margin: 0 10px;
+    font-family: 'Neucha', cursive;
+
+}
+
+.color-slider span {
+    width: 15rem;
+    height: 100%;
+    background-color: #d4e892;
+    padding-left: 1rem;
+    height: 2.7rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    letter-spacing: 3px;
+    font-family: 'Neucha', cursive;
+    font-weight: bolder;
+    text-decoration: none;
+    
+
+
+}
+
+.color-slider a {
+    text-decoration: none;
+    width: 70%;
+}
+
+.select-container {
+    margin-left: auto;
+    margin-right: 0.5rem;
+}

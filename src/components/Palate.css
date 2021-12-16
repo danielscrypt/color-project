@@ -1,0 +1,20 @@
+.palate {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.palate-color {
+    height: 90%;
+}
+
+.palate-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9rem;
+    align-items: center;
+    padding: 0 1rem;
+    margin-top: 0;
+    font-family: 'Neucha', cursive;
+
+}
