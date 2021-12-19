@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState}  from'react'
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,6 +10,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Button from '@material-ui/core/Button';
+
+import { ChromePicker } from 'react-color';
+
 
 
 const drawerWidth = 240;
@@ -74,7 +78,9 @@ const useStyles = makeStyles((theme) => ({
 export default function NewPaleteForm() {
     const classes = useStyles();
     // const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [bg, setBg] = useState('#fff');
+
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -83,6 +89,11 @@ export default function NewPaleteForm() {
     const handleDrawerClose = () => {
       setOpen(false);
     };
+
+    const handleChangeComplete = (color) => {
+        setBg({ bg: color.hex });
+      };
+
   
     return (
       <div className={classes.root}>
@@ -123,8 +134,21 @@ export default function NewPaleteForm() {
             </IconButton>
           </div>
           <Divider />
-        
-          <Divider />
+
+           <Typography variant='h4'>Design Your Palette</Typography>
+          <div>
+            <Button variant='contained' color='secondary'>
+              Clear Palette
+            </Button>
+            <Button variant='contained' color='primary'>
+              Random Color
+            </Button>
+            </div>
+          <ChromePicker
+           color='purple' 
+           onChangeComplete={newColor => console.log(newColor) }
+           />
+      
         
         </Drawer>
         <main
@@ -133,6 +157,7 @@ export default function NewPaleteForm() {
           })}
         >
           <div className={classes.drawerHeader} />
+
          
         </main>
       </div>
