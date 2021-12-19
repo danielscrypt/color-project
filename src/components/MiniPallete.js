@@ -16,7 +16,7 @@ function MiniPallete(props) {
             </div>
                 ))}
             </div>
-            <span><Link to={`./pallete/${id}`}>
+            <span><Link key={id} to={`./pallete/${id}`}>
                     {paletteName}
                     </Link></span>
         </div>
