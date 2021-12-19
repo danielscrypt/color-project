@@ -12,11 +12,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 
-import { ChromePicker } from 'react-color';
+import { HexColorPicker } from "react-colorful";
 
 
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +79,9 @@ export default function NewPaleteForm() {
     const classes = useStyles();
     // const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [bg, setBg] = useState('#fff');
+    const [color, setColor] = useState('#333');
+    const [colors , setColors] = useState([ '#fff' , '333']);
+
 
   
     const handleDrawerOpen = () => {
@@ -90,10 +92,11 @@ export default function NewPaleteForm() {
       setOpen(false);
     };
 
-    const handleChangeComplete = (color) => {
-        setBg({ bg: color.hex });
-      };
+    const addColor = (newColor) => {
+        setColors([...colors , newColor])
+    }
 
+    
   
     return (
       <div className={classes.root}>
@@ -144,10 +147,14 @@ export default function NewPaleteForm() {
               Random Color
             </Button>
             </div>
-          <ChromePicker
-           color='purple' 
-           onChangeComplete={newColor => console.log(newColor) }
-           />
+            <HexColorPicker color={color} onChange={setColor} />;
+           <Button 
+           onClick={() => addColor(color)}
+           variant='contained' 
+           color='secondary' 
+           style={{backgroundColor : color}}>
+              Add Color {color}
+            </Button>
       
         
         </Drawer>
@@ -157,6 +164,15 @@ export default function NewPaleteForm() {
           })}
         >
           <div className={classes.drawerHeader} />
+
+          {colors.map(color => (
+              <ul>
+              <li>{color}</li>
+              </ul>
+          ))}
+
+          
+
 
          
         </main>
