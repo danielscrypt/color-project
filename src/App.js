@@ -5,6 +5,7 @@ import colorSeeds from './seeds/colorSeeds';
 import {generatePalette} from './colorHelper'
 import { Route , Switch } from 'react-router-dom'
 import SinglePalete from './components/SinglePalete';
+import NewPaleteFrom from './components/NewPaleteFrom';
 
 
 function App() {
@@ -21,7 +22,18 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route key='main' exact path='/' render={() => <PalleteList  palletes={colorSeeds} />} />
+
+        <Route key="newPallete"
+        exact
+        path='/pallete/new'
+        render={() => <NewPaleteFrom />} ></Route>
+
+
+        <Route key='main' 
+        exact 
+        path='/' 
+        render={() => 
+        <PalleteList  palletes={colorSeeds} />} />
 
           <Route key='pallete'
            exact

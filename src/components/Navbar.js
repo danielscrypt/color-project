@@ -7,7 +7,7 @@ import Snackbar  from '@material-ui/core/Snackbar';
 import IconBtn  from '@material-ui/core/IconButton';
 import Close  from '@material-ui/icons/Close';
 import {NavLink } from 'react-router-dom'
-import './Navbar.css'
+import './styles/Navbar.css'
 
 
 

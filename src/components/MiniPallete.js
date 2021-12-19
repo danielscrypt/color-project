@@ -1,5 +1,5 @@
 import React from 'react'
-import './MiniPal.css';
+import './styles/MiniPal.css';
 import {Link} from 'react-router-dom'
 
 function MiniPallete(props) {
