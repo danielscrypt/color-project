@@ -1,6 +1,9 @@
 import React , {useState}  from'react'
+import useStyles from './styles/NewFormStyles.js'
+import './styles/ColorBox.css'
+import './styles/NewFormStyle.css'
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,76 +14,23 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
+// import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+// import TextField from '@material-ui/core/TextField';
+// import { FormControl } from '@material-ui/core';
+
+
 
 import { HexColorPicker } from "react-colorful";
+import DragableColorBox from './DragableColorBox.js';
 
 
-
-const drawerWidth = 400;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-}));
 
 export default function NewPaleteForm() {
     const classes = useStyles();
     // const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [color, setColor] = useState('#333');
-    const [colors , setColors] = useState([ '#fff' , '333']);
+    const [colors , setColors] = useState([]);
 
 
   
@@ -107,7 +57,7 @@ export default function NewPaleteForm() {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <Toolbar className='toolbar'>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -118,8 +68,16 @@ export default function NewPaleteForm() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Persistent drawer
+              create pallete
             </Typography>
+            <div>
+            <Button variant='contained' color='primary'>
+              <a href='/' style={{textDecoration: 'none' , color: '#fff'}}>go back</a>
+            </Button>
+            <Button variant='contained' color='secondary'>
+              save
+            </Button>
+            </div>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -138,7 +96,7 @@ export default function NewPaleteForm() {
           </div>
           <Divider />
 
-           <Typography variant='h4'>Design Your Palette</Typography>
+           <Typography className='designHeader' variant='h4'>Design Your Palette</Typography>
           <div>
             <Button variant='contained' color='secondary'>
               Clear Palette
@@ -147,15 +105,23 @@ export default function NewPaleteForm() {
               Random Color
             </Button>
             </div>
-            <HexColorPicker color={color} onChange={setColor} />;
+            <HexColorPicker color={color} onChange={setColor} />
+           {/* < FormControl > */}
+          {/* <TextField 
+          error
+           id="outlined-search"
+           label="Color Name"
+           type="text" /> */}
+        
            <Button 
+           disabled={colors.length === 20}
            onClick={() => addColor(color)}
            variant='contained' 
            color='secondary' 
            style={{backgroundColor : color}}>
               Add Color {color}
             </Button>
-      
+      {/* </FormControl> */}
         
         </Drawer>
         <main
@@ -166,9 +132,7 @@ export default function NewPaleteForm() {
           <div className={classes.drawerHeader} />
 
           {colors.map(color => (
-              <ul>
-              <li>{color}</li>
-              </ul>
+            <DragableColorBox bg={color} />
           ))}
 
           

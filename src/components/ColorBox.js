@@ -29,7 +29,7 @@ class ColorBox extends Component{
 
         return (
             <CopyToClipboard text={bg} onCopy={this.handleCopy}>
-            <div style={{background : bg}} className='color-box'>
+            <div style={{background : bg}} className='colorBox'>
                 <div style={{background : bg}}
                  className={`copy-overlay ${copied ? 'show' : '' }`}/>
                  <div className={`copied-text ${copied ? 'show' : ''   }`}>
