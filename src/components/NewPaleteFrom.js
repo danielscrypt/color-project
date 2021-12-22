@@ -1,4 +1,5 @@
 import React , {useState}  from'react'
+import { v4 as uuidv4 } from 'uuid';
 import useStyles from './styles/NewFormStyles.js'
 import './styles/ColorBox.css'
 import './styles/NewFormStyle.css'
@@ -25,7 +26,7 @@ import DragableColorBox from './DragableColorBox.js';
 
 
 
-export default function NewPaleteForm() {
+export default function NewPaleteForm(props) {
     const classes = useStyles();
     // const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -43,7 +44,22 @@ export default function NewPaleteForm() {
     };
 
     const addColor = (newColor) => {
-        setColors([...colors , newColor])
+        setColors([...colors , {id: uuidv4() ,  name : 'hey', color: newColor}])
+    }
+
+     const handleSubmit = () => {
+      let newName = "New Test Palette";
+      const newPalette = {
+        paletteName: newName,
+        id: newName.toLowerCase().replace(/ /g, "-"),
+        colors: colors
+      };
+      props.savePalette(newPalette);
+      props.history.push("/");
+    }
+
+    const handleDelete = (colorId) => {
+      setColors(colors.filter(color => color.id !== colorId))
     }
 
     
@@ -71,10 +87,13 @@ export default function NewPaleteForm() {
               create pallete
             </Typography>
             <div>
-            <Button variant='contained' color='primary'>
+            <Button className='btn' variant='contained' color='primary'>
               <a href='/' style={{textDecoration: 'none' , color: '#fff'}}>go back</a>
             </Button>
-            <Button variant='contained' color='secondary'>
+            <Button id='btn'
+            onClick={handleSubmit} 
+            variant='contained' 
+            color='secondary'>
               save
             </Button>
             </div>
@@ -98,10 +117,10 @@ export default function NewPaleteForm() {
 
            <Typography className='designHeader' variant='h4'>Design Your Palette</Typography>
           <div>
-            <Button variant='contained' color='secondary'>
+            <Button id='btn' variant='contained' color='secondary'>
               Clear Palette
             </Button>
-            <Button variant='contained' color='primary'>
+            <Button id='btn' variant='contained' color='primary'>
               Random Color
             </Button>
             </div>
@@ -113,7 +132,7 @@ export default function NewPaleteForm() {
            label="Color Name"
            type="text" /> */}
         
-           <Button 
+           <Button id='btn'
            disabled={colors.length === 20}
            onClick={() => addColor(color)}
            variant='contained' 
@@ -132,7 +151,7 @@ export default function NewPaleteForm() {
           <div className={classes.drawerHeader} />
 
           {colors.map(color => (
-            <DragableColorBox bg={color} />
+            <DragableColorBox  handleDelete={() => handleDelete(color.id)} bg={color.color} />
           ))}
 
           

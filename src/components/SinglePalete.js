@@ -67,7 +67,7 @@ export default class SinglePalete extends Component {
             handleClose={this.handleClosePopUp}
             />
         <div className='palate-color'>{colorBoxes}
-        <div className='go-back color-box'>
+        <div className='go-back colorBox'>
             <Link className='go-back-btn' to={`/pallete/${this.props.palette.id}`}>
                 go back
             </Link>

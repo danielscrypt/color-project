@@ -1,5 +1,6 @@
 .navbar {
     display: flex;
+    align-items: center;
 }
 
 
@@ -12,16 +13,16 @@
 }
 
 .color-slider p {
-    margin: 0 10px;
     font-family: 'Neucha', cursive;
 
 }
 
 .color-slider span {
+    margin: 0 0 5px 0 ;
+    padding: 5px;
     width: 15rem;
     height: 100%;
     background-color: #d4e892;
-    padding-left: 1rem;
     height: 2.7rem;
     text-align: center;
     display: flex;
@@ -37,7 +38,7 @@
 
 .color-slider a {
     text-decoration: none;
-    width: 70%;
+    width: 100%;
 }
 
 .select-container {
