@@ -15,3 +15,12 @@ span {
     justify-content: space-between;
     align-items: center;
 }
+
+#Dialog {
+    padding: 20px;
+    color: red
+}
+
+.MuiDialog-paper {
+    padding: 20px;
+}

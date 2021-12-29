@@ -16,8 +16,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 // import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 // import { FormControl } from '@material-ui/core';
+// import Avatar from '@material-ui/core/Avatar';
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+// import ListItemText from '@material-ui/core/ListItemText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+// import PersonIcon from '@material-ui/icons/Person';
+// import AddIcon from '@material-ui/icons/Add';
+// import { blue } from '@material-ui/core/colors';
+import PropTypes from 'prop-types';
+
 
 
 
@@ -25,26 +37,52 @@ import { HexColorPicker } from "react-colorful";
 import DragableColorBox from './DragableColorBox.js';
 
 
-
 export default function NewPaleteForm(props) {
     const classes = useStyles();
     // const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [open, setOpenDrawer] = useState(false);
     const [color, setColor] = useState('#333');
     const [colors , setColors] = useState([]);
+    const [colorName , setName] = useState('');
+    const [openDialog, setOpenDialog] = useState(false);
+    const [nameVali , setVali] = useState(false)
 
 
+
+
+    const handleClickOpen = () => {
+      setOpenDialog(true);
+    };
+  
+    const handleClose = (value) => {
+      setOpenDialog(false);
+    };
   
     const handleDrawerOpen = () => {
-      setOpen(true);
+      setOpenDrawer(true);
     };
   
     const handleDrawerClose = () => {
-      setOpen(false);
+      setOpenDrawer(false);
     };
 
     const addColor = (newColor) => {
-        setColors([...colors , {id: uuidv4() ,  name : 'hey', color: newColor}])
+      const newCol = {
+        id: uuidv4() , 
+        color: newColor,
+        name: colorName
+      };
+      if(colorName <= 0){
+        setVali(true)
+      } else {
+        setColors([...colors , newCol])
+        setName('')
+        setVali(false)
+      }
+    }
+
+    const handleChange = (evt) =>  {
+      setName(evt.target.value);
     }
 
      const handleSubmit = () => {
@@ -61,6 +99,45 @@ export default function NewPaleteForm(props) {
     const handleDelete = (colorId) => {
       setColors(colors.filter(color => color.id !== colorId))
     }
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function randomName() {
+      const names = ["Harry","Ross",
+      "Bruce","Cook",
+      "Carolyn","Morgan",
+      "Albert","Walker",
+      "Randy","Reed",
+      "Larry","Barnes",
+      "Lois","Wilson",
+      "Jesse","Campbell",
+      "Ernest","Rogers",
+      "Theresa","Patterson",
+      "Henry","Simmons",
+      "Michelle","Perry",
+      "Frank","Butler",
+      "Shirley"]
+
+      const random = Math.floor(Math.random() * names.length)
+      
+      return names[random]
+    }
+
+    const randColor = () => {
+      setColors([...colors , {id: uuidv4() ,  name : randomName() , color:  getRandomColor()}])
+    }
+
+    const clearColors = () => {
+      setColors([])
+    }
+
 
     
   
@@ -87,11 +164,17 @@ export default function NewPaleteForm(props) {
               create pallete
             </Typography>
             <div>
-            <Button className='btn' variant='contained' color='primary'>
+
+            <Button 
+            className='btn' 
+            variant='contained' 
+            color='primary'>
               <a href='/' style={{textDecoration: 'none' , color: '#fff'}}>go back</a>
             </Button>
-            <Button id='btn'
-            onClick={handleSubmit} 
+
+            <Button 
+            id='btn'
+            onClick={handleClickOpen} 
             variant='contained' 
             color='secondary'>
               save
@@ -99,6 +182,13 @@ export default function NewPaleteForm(props) {
             </div>
           </Toolbar>
         </AppBar>
+        <SimpleDialog
+        open={openDialog}
+        onClose={handleClose}
+      />
+
+        
+        
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -117,28 +207,41 @@ export default function NewPaleteForm(props) {
 
            <Typography className='designHeader' variant='h4'>Design Your Palette</Typography>
           <div>
-            <Button id='btn' variant='contained' color='secondary'>
+            <Button
+            onClick={clearColors} 
+            id='btn' 
+            variant='contained' 
+            color='secondary'>
               Clear Palette
             </Button>
-            <Button id='btn' variant='contained' color='primary'>
+            <Button
+            disabled={colors.length === 20}
+            onClick={randColor} 
+            id='btn' 
+            variant='contained' 
+            color='primary'>
               Random Color
             </Button>
             </div>
             <HexColorPicker color={color} onChange={setColor} />
            {/* < FormControl > */}
-          {/* <TextField 
-          error
+          <TextField 
+          error={nameVali}
+          helperText={nameVali ? 'Please ente name...' : ''}
+          value={colorName}
+           onChange={handleChange}
            id="outlined-search"
            label="Color Name"
-           type="text" /> */}
+           type="text" />
         
-           <Button id='btn'
+           <Button 
+           id='btn'
            disabled={colors.length === 20}
            onClick={() => addColor(color)}
            variant='contained' 
            color='secondary' 
            style={{backgroundColor : color}}>
-              Add Color {color}
+              {colors.length === 20 ? 'Pallete IS Full' : `Add Color ${color}` }
             </Button>
       {/* </FormControl> */}
         
@@ -151,7 +254,11 @@ export default function NewPaleteForm(props) {
           <div className={classes.drawerHeader} />
 
           {colors.map(color => (
-            <DragableColorBox  handleDelete={() => handleDelete(color.id)} bg={color.color} />
+            <DragableColorBox 
+             key={uuidv4()} 
+             handleDelete={() => handleDelete(color.id)} 
+             bg={color.color}
+             name={color.name} />
           ))}
 
           
@@ -162,3 +269,36 @@ export default function NewPaleteForm(props) {
       </div>
     );
   }
+
+
+  function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+  
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+  
+    
+    return (
+      <section id="Dialog">
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Select Pallete Name</DialogTitle>
+        <TextField id="outlined-basic" label="PalleteName" variant="outlined" />
+  
+        <Button 
+              id='btn'
+              variant='contained' 
+              color='secondary'>
+                save
+              </Button>
+        
+      </Dialog>
+      </section>
+    );
+  }
+  
+  SimpleDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedValue: PropTypes.string.isRequired,
+  };

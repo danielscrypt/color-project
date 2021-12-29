@@ -34,7 +34,7 @@ function DragableColorBox(props) {
     return (
         <div className={classes.root} style={{backgroundColor : props.bg}}>
             <DeleteIcon onClick={props.handleDelete} />
-             hey {props.bg}
+             {props.name}
         </div>
     )
 }
