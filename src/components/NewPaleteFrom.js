@@ -17,24 +17,21 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 // import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import TextField from '@material-ui/core/TextField';
-// import { FormControl } from '@material-ui/core';
-// import Avatar from '@material-ui/core/Avatar';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-// import ListItemText from '@material-ui/core/ListItemText';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 // import PersonIcon from '@material-ui/icons/Person';
 // import AddIcon from '@material-ui/icons/Add';
 // import { blue } from '@material-ui/core/colors';
 import PropTypes from 'prop-types';
+import { arrayMove } from 'react-sortable-hoc';
 
 
 
 
 import { HexColorPicker } from "react-colorful";
 import DragableColorBox from './DragableColorBox.js';
+import DragableColorList from './DragableColorList.js';
 
 
 export default function NewPaleteForm(props) {
@@ -85,8 +82,8 @@ export default function NewPaleteForm(props) {
       setName(evt.target.value);
     }
 
-     const handleSubmit = () => {
-      let newName = "New Test Palette";
+     const handleSubmit = (name) => {
+      let newName = name;
       const newPalette = {
         paletteName: newName,
         id: newName.toLowerCase().replace(/ /g, "-"),
@@ -138,6 +135,11 @@ export default function NewPaleteForm(props) {
       setColors([])
     }
 
+    const onSortEnd = (oldIndex, newIndex) => {
+      setColors(arrayMove(colors, oldIndex, newIndex));
+      console.log(oldIndex)
+  }
+
 
     
   
@@ -185,6 +187,7 @@ export default function NewPaleteForm(props) {
         <SimpleDialog
         open={openDialog}
         onClose={handleClose}
+        handleSubmit={handleSubmit}
       />
 
         
@@ -253,13 +256,12 @@ export default function NewPaleteForm(props) {
         >
           <div className={classes.drawerHeader} />
 
-          {colors.map(color => (
-            <DragableColorBox 
-             key={uuidv4()} 
-             handleDelete={() => handleDelete(color.id)} 
-             bg={color.color}
-             name={color.name} />
-          ))}
+          <DragableColorList 
+          axis='xy'
+          colors={colors}
+          handleDelete={handleDelete}
+          onSortEnd={onSortEnd}
+          />
 
           
 
@@ -272,23 +274,33 @@ export default function NewPaleteForm(props) {
 
 
   function SimpleDialog(props) {
-    const { onClose, selectedValue, open } = props;
+    const { onClose, selectedValue, open , handleSubmit } = props;
+    const [palleteName , setPalleteName] = useState('') 
   
     const handleClose = () => {
       onClose(selectedValue);
     };
+
+    const handleChange = (e) => {
+      setPalleteName(e.target.value)
+    }
   
     
     return (
       <section id="Dialog">
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Select Pallete Name</DialogTitle>
-        <TextField id="outlined-basic" label="PalleteName" variant="outlined" />
+        <TextField 
+        onChange={handleChange}
+        id="outlined-basic" 
+        label="PalleteName" 
+        variant="outlined" />
   
         <Button 
               id='btn'
               variant='contained' 
-              color='secondary'>
+              color='secondary'
+              onClick={() => handleSubmit(palleteName)}>
                 save
               </Button>
         
