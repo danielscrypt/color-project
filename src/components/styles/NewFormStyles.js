@@ -4,9 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const drawerWidth = 400;
 
 
-
 const useStyles = makeStyles((theme) => ({
-  
     root: {
       display: 'flex',
     },
@@ -31,13 +29,18 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
     drawer: {
-      width: drawerWidth,
+      width: drawerWidth ,
       flexShrink: 0,
     },
     drawerPaper: {
       width: drawerWidth,
       display: 'flex' , 
       alignItems: 'center',
+      "@media (max-width: 800px)": {
+        width: drawerWidth  , 
+        fontSize: '0.5rem' , 
+        flexDirection: 'coloumn'
+      }
     },
     drawerHeader: {
       display: 'flex',
@@ -46,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: 'flex-end',
-      marginLeft: 'auto' , 
     },
     content: {
       flexGrow: 1,
@@ -74,10 +76,8 @@ const useStyles = makeStyles((theme) => ({
       margin: '-3px auto',
       textTransform: 'uppercase',
       fontFamily: 'Neucha, cursive',
-     
-  }, 
-  
- 
+      
+  },
   }));
 
   export default useStyles

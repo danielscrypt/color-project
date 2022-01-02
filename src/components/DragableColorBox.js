@@ -24,7 +24,11 @@ const useStyles = makeStyles( () => ({
         justifyContent: 'space-between',
         alignItems: 'flex-end',
         padding : '10px', 
-        color: '#fff' 
+        color: '#fff' , 
+        "@media (max-width: 1000px)": {
+            width: '50%' , 
+            height: '10%'
+          }
     }
 }))
 

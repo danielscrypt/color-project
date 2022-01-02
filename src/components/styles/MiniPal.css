@@ -120,6 +120,22 @@ box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55);
     opacity: 1;
 }
 
+.item-enter {
+    opacity: 0;
+  }
+  .item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .item-exit {
+    opacity: 1;
+  }
+  .item-exit-active {
+    opacity: 0;
+    transition: opacity 800ms ease-in;
+  }
+  
+
 
 @media screen and (max-width: 750px) {
     .palete-list {

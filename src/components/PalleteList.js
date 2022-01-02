@@ -3,6 +3,10 @@ import React, { Component } from 'react'
 import MiniPallete from './MiniPallete'
 import './styles/MiniPal.css'
 import { Link } from 'react-router-dom'
+import {
+    CSSTransition,
+    TransitionGroup,
+  } from 'react-transition-group';
 
  class PalleteList extends Component {
     render() {
@@ -12,19 +16,19 @@ import { Link } from 'react-router-dom'
                     <h1>COLORSSSSS</h1>
                     <Link to='/pallete/new' className="create-btn">create palete</Link>
                 </div>
-            <div className="palete-list">
+                <TransitionGroup className="palete-list">
                 {this.props.palletes.map(pallete => (
-                    // <p>
-                    // <Link to={`./pallete/${pallete.id}`}>
-                    //   hey  {pallete.paletteName}
-                    // </Link>
-                    // </p>
+                    <CSSTransition
+                    key={pallete.id}
+                    timeout={300}
+                    classNames="item">
                     <MiniPallete 
                     key={`mini-${pallete.id}`} 
                     handleDelete={this.props.deletePallete}
                     {...pallete} />
+                    </CSSTransition>
                 ))}
-            </div>
+                </TransitionGroup>
             </div>
         )
     }
