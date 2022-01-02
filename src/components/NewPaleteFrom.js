@@ -30,7 +30,7 @@ import { arrayMove } from 'react-sortable-hoc';
 
 
 import { HexColorPicker } from "react-colorful";
-import DragableColorBox from './DragableColorBox.js';
+// import DragableColorBox from './DragableColorBox.js';
 import DragableColorList from './DragableColorList.js';
 
 
@@ -256,12 +256,15 @@ export default function NewPaleteForm(props) {
         >
           <div className={classes.drawerHeader} />
 
-          <DragableColorList 
+          {colors.length >=1 ? <DragableColorList 
           axis='xy'
           colors={colors}
           handleDelete={handleDelete}
           onSortEnd={onSortEnd}
           />
+          :
+          <h4 className='justImagine'>Just Imagine</h4>
+          }
 
           
 
@@ -276,6 +279,10 @@ export default function NewPaleteForm(props) {
   function SimpleDialog(props) {
     const { onClose, selectedValue, open , handleSubmit } = props;
     const [palleteName , setPalleteName] = useState('') 
+    const [palleteNameVali , setPalleteNameVali] = useState(true) 
+
+
+    
   
     const handleClose = () => {
       onClose(selectedValue);
@@ -283,6 +290,11 @@ export default function NewPaleteForm(props) {
 
     const handleChange = (e) => {
       setPalleteName(e.target.value)
+      if (palleteName.length - 1 > 0) {
+        setPalleteNameVali(false)
+      } else {
+        setPalleteNameVali(true)
+      }
     }
   
     
@@ -291,12 +303,15 @@ export default function NewPaleteForm(props) {
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Select Pallete Name</DialogTitle>
         <TextField 
+        error={palleteNameVali}
+        helperText={palleteNameVali && 'please enter name......'}
         onChange={handleChange}
         id="outlined-basic" 
-        label="PalleteName" 
+        label="Pallete Name" 
         variant="outlined" />
   
-        <Button 
+        <Button
+              disabled={palleteNameVali}  
               id='btn'
               variant='contained' 
               color='secondary'

@@ -67,7 +67,7 @@ class Palate extends Component {
                     {colorBoxes}
                 </div>
                 <footer className='palate-footer'>
-                   hey {paletteName}
+                    {paletteName}
                 </footer>
             </div>
         )

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState  , useEffect} from "react";
 import PalleteList from "./components/PalleteList";
 import Palate from "./components/Palate";
 import colorSeeds from "./seeds/colorSeeds";
@@ -9,11 +9,20 @@ import SinglePalete from "./components/SinglePalete";
 import NewPaleteFrom from "./components/NewPaleteFrom";
 
 function App() {
-  const [palettes, setColorSeeds] = useState(colorSeeds);
+  const savedPalletes =  JSON.parse(window.localStorage.getItem('palletes'))
+  const [palettes, setColorSeeds] = useState(savedPalletes || colorSeeds);
 
   const savePalette = (newPalette) => {
-    setColorSeeds([...palettes, newPalette]);
+    setColorSeeds([...palettes, newPalette] );
   };
+
+  const syncLocalStorage = () => {
+    window.localStorage.setItem('palletes', JSON.stringify(palettes))
+  }
+
+  useEffect(() => {
+    syncLocalStorage()
+  });
 
 
   const findPalette = (id) => {
