@@ -87,3 +87,42 @@ box-shadow: 3px 4px 28px 2px rgba(0,0,0,0.55);
     font-weight: 700;
     text-decoration: none;
 }
+
+#deleteIcon {
+    display: inline;
+    position: relative;
+    font-size: 1rem;
+    margin-right: 0;
+    cursor: pointer;
+    background-color: #ffd9f1;
+    padding: 5px;
+    border-radius: 30%;
+    transition: all ease-in 2500ms;
+    opacity: 0;
+}
+
+#deleteIcon:hover {
+    transform: scale(1.5);
+    background-color: rgb(0, 0, 0);
+    color:#ffd9f1 ;
+}
+
+.miniFooter {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.miniFooter:hover #deleteIcon {
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 750px) {
+    .palete-list {
+        width: 80%;
+    }
+  }

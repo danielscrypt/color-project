@@ -20,7 +20,7 @@
 .color-slider span {
     margin: 0 0 5px 0 ;
     padding: 5px;
-    width: 15rem;
+    width: 10rem;
     height: 100%;
     background-color: #d4e892;
     height: 2.7rem;
@@ -31,6 +31,7 @@
     font-family: 'Neucha', cursive;
     font-weight: bolder;
     text-decoration: none;
+    margin-bottom: -2px;
     
 
 
@@ -45,3 +46,10 @@
     margin-left: auto;
     margin-right: 0.5rem;
 }
+
+@media screen and (max-width: 800px) {
+    .color-slider span {
+        width: 40%;
+        font-size: 0.7rem;
+    }
+  }

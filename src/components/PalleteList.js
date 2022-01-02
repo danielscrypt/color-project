@@ -19,7 +19,10 @@ import { Link } from 'react-router-dom'
                     //   hey  {pallete.paletteName}
                     // </Link>
                     // </p>
-                    <MiniPallete key={`mini-${pallete.id}`} {...pallete} />
+                    <MiniPallete 
+                    key={`mini-${pallete.id}`} 
+                    handleDelete={this.props.deletePallete}
+                    {...pallete} />
                 ))}
             </div>
             </div>

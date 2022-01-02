@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const drawerWidth = 400;
 
 
+
 const useStyles = makeStyles((theme) => ({
+  
     root: {
       display: 'flex',
     },
@@ -72,7 +74,9 @@ const useStyles = makeStyles((theme) => ({
       margin: '-3px auto',
       textTransform: 'uppercase',
       fontFamily: 'Neucha, cursive',
+     
   }, 
+  
  
   }));
 

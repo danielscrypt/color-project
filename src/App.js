@@ -24,12 +24,15 @@ function App() {
     syncLocalStorage()
   });
 
-
   const findPalette = (id) => {
     return palettes.find((pallete) => {
       return pallete.id === id;
     });
   };
+
+  const deletePallete = (id) => {
+    setColorSeeds(palettes.filter(palette => palette.id !== id))
+  }
 
   
   return (
@@ -48,7 +51,7 @@ function App() {
           key="main"
           exact
           path="/"
-          render={() => <PalleteList palletes={palettes} />}
+          render={() => <PalleteList palletes={palettes} deletePallete={deletePallete} />}
         />
 
         <Route
