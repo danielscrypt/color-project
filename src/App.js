@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState  , useEffect} from "react";
 import PalleteList from "./components/PalleteList";
 import Palate from "./components/Palate";
+import Page from "./components/Page";
 import colorSeeds from "./seeds/colorSeeds";
 import { generatePalette } from "./colorHelper";
 import { Route, Switch } from "react-router-dom";
@@ -55,7 +56,9 @@ function App() {
            exact
            path="/pallete/new"
            render={(routeProps) => (
+            <Page>
              <NewPaleteFrom savePalette={savePalette} {...routeProps} />
+             </Page>
            )}
          ></Route>
  
@@ -63,7 +66,7 @@ function App() {
            key="main"
            exact
            path="/"
-           render={() => <PalleteList palletes={palettes} deletePallete={deletePallete} />}
+           render={() => <Page> <PalleteList palletes={palettes} deletePallete={deletePallete} /> </Page>}
          />
  
          <Route
@@ -71,9 +74,11 @@ function App() {
            exact
            path={`/pallete/:id`}
            render={(routeProps) => (
+             <Page>
              <Palate
                palate={generatePalette(findPalette(routeProps.match.params.id))}
              />
+             </Page>
            )}
          />
  
@@ -82,10 +87,12 @@ function App() {
            exact
            path="/pallete/:id/:colorId"
            render={(routeProps) => (
+             <Page>
              <SinglePalete
                palette={generatePalette(findPalette(routeProps.match.params.id))}
                colorId={routeProps.match.params.colorId}
              />
+             </Page>
            )}
          />
        </Switch>
